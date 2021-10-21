@@ -57,12 +57,12 @@ export default class FormaValidCard {
     }, 0);
     const validity = checkNumber === (10 - (checkSumm % 10));
     if (validity) {
-      this.identifyAffiliationCard();
+      this.identifyAffiliationCard(numCard);
     } else alert('Вы ввели неверный номер карты');
   }
 
-  identifyAffiliationCard() { // определяет какой системе принадлежит карта
-    const numCard = this.inputEl.value;
+  identifyAffiliationCard(numCard) { // определяет какой системе принадлежит карта
+    // const numCard = this.inputEl.value;
     this.cardIdentifiers.forEach((elem) => {
       // eslint-disable-next-line guard-for-in
       for (const obj in elem) {
