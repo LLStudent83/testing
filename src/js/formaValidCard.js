@@ -63,9 +63,23 @@ export default class FormaValidCard {
 
   identifyAffiliationCard() { // определяет какой системе принадлежит карта
     const numCard = this.inputEl.value;
+    this.cardIdentifiers.forEach((elem) => {
+      // eslint-disable-next-line guard-for-in
+      for (const obj in elem) {
+        elem[obj].forEach((elemObj) => {
+          const test = new RegExp(`^${elemObj}`).test(numCard);
+          if (test) {
+            this.showAffiliationCard(obj);
+          }
+        });
+      }
+    });
   }
 
-  showAffiliationCard() { // подсвечивает иконку системы карты
-
+  showAffiliationCard(nameCard) { // подсвечивает иконку системы карты
+    const elemCards = document.querySelectorAll('.image-card');
+    elemCards.forEach((elem) => elem.classList.add('mask'));
+    const actevCard = document.querySelector(`.${nameCard}`);
+    actevCard.classList.remove('mask');
   }
 }
