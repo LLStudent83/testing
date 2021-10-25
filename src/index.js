@@ -2,4 +2,4 @@ import './css/style.css';
 
 import './js/app';
 
-// import './js/formaValidCard';
+// import './js/showAffiliation.test.js';

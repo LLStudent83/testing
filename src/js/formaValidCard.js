@@ -20,7 +20,7 @@ export default class FormaValidCard {
 
   init() {
     this.inputEl.addEventListener('input', (event) => this.checkValidInputNum(event));
-    this.buttonEl.addEventListener('click', () => this.checkValidInput());
+    this.buttonEl.addEventListener('click', () => this.checkValidInput(this.inputEl.value));
   }
 
   checkValidInputNum(event) { // проверяет что бы каждое введенное значение было числом
@@ -38,8 +38,7 @@ export default class FormaValidCard {
     return true;
   }
 
-  checkValidInput() { // проверяет правильность введенного номера карты
-    const numCard = this.inputEl.value;
+  checkValidInput(numCard) { // проверяет правильность введенного номера карты
     const numLength = numCard.length;
     const checkNumber = Number(numCard.substring(numLength - 1)); // контрольное число
     const numberArr = numCard.substring(0, numLength - 1).split('');
@@ -81,5 +80,6 @@ export default class FormaValidCard {
     elemCards.forEach((elem) => elem.classList.add('mask'));
     const actevCard = document.querySelector(`.${nameCard}`);
     actevCard.classList.remove('mask');
+    actevCard.classList.add('acktiv');
   }
 }
