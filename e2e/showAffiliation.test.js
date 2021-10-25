@@ -1,10 +1,4 @@
-/**
- * @jest-environment jsdom
- */
-
-/* eslint-disable no-unused-vars */
-
-import FormaValidCard from '../src/js/formaValidCard';
+import { fork } from 'child_process';
 
 const puppetteer = require('puppeteer');
 
@@ -12,16 +6,26 @@ jest.setTimeout(30000);
 describe('Check сard', () => {
   let browser = null;
   let page = null;
-  const baseUrl = 'http://localhost:8080';
+  let server = null;
+  const baseUrl = 'http://localhost:9000';
   beforeAll(async () => {
+    server = fork(`${__dirname}/e2e.server.js`);
+    await new Promise((resolve, reject) => {
+      server.on('error', reject);
+      server.on('message', (message) => {
+        if (message === 'ok') {
+          resolve();
+        }
+      });
+    });
+
     browser = await puppetteer.launch({
-      headless: true, // show guis
+      headless: false, // show guis
       lowMo: 100,
       devtools: true, // show devTools
     });
     page = await browser.newPage();
   });
-
   afterAll(async () => {
     await browser.close();
   });
