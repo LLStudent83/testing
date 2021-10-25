@@ -14,6 +14,14 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /\.ico|txt$/,
+        use: [
+          {
+            loader: "static-files-loader",
+          },
+        ],
+      },
+      {
         test: /\.(png|jpg|gif)$/i,
         dependency: { not: ['url'] }, // отключает лоадер
         use: [

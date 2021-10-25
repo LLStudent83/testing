@@ -8,7 +8,7 @@
   "scripts": {
     "start": "webpack serve --config webpack.dev.js",
     "test": "jest --testPathPattern=./src/",
-    "e2e":"jest --testPathPattern=./e2e/ --runInBand",
+    "e2e": "jest --testPathPattern=./e2e/ --runInBand",
     "build": "webpack --config webpack.prod.js",
     "lint": "eslint .",
     "coverage": "jest --testPathPattern=./src/ --coverage",
@@ -37,6 +37,7 @@
     "mini-css-extract-plugin": "^2.4.2",
     "optimize-css-assets-webpack-plugin": "^6.0.1",
     "puppeteer": "^10.4.0",
+    "static-files-loader": "^0.1.1",
     "terser-webpack-plugin": "^5.2.4",
     "url-loader": "^4.1.1",
     "webpack": "^5.58.2",

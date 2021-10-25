@@ -4,7 +4,7 @@
 
 /* eslint-disable no-unused-vars */
 
-import FormaValidCard from '../formaValidCard';
+import FormaValidCard from '../src/js/formaValidCard';
 
 const puppetteer = require('puppeteer');
 
@@ -15,7 +15,7 @@ describe('Check сard', () => {
   const baseUrl = 'http://localhost:8080';
   beforeAll(async () => {
     browser = await puppetteer.launch({
-      headless: false, // show guis
+      headless: true, // show guis
       lowMo: 100,
       devtools: true, // show devTools
     });
@@ -26,13 +26,6 @@ describe('Check сard', () => {
     await browser.close();
   });
   describe('Check сard', () => {
-    // test('проверка метода checkValidInput', async () => {
-    //   await page.goto(baseUrl);
-    //   const formaValidCard = await new FormaValidCard();
-    //   // const result = formaValidCard.checkValidInput('2221004624178068');
-    //   expect(formaValidCard.checkValidInput('2221004624178068'))
-    //     .toBe(formaValidCard.identifyAffiliationCard);
-    // });
     test('проверка подсвечивания иконки карты', async () => {
       await page.goto(baseUrl);
       const input = await page.$('.input-valid-card');

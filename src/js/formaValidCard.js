@@ -2,11 +2,14 @@
 /* eslint-disable no-unused-expressions */
 /* eslint-disable no-alert */
 /* eslint-disable class-methods-use-this */
+
+import checkValidInput from './testNumberCard';
+
 export default class FormaValidCard {
-  constructor() {
-    this.containerEl = document.querySelector('.container');
-    this.inputEl = document.querySelector('.input-valid-card');
-    this.buttonEl = document.querySelector('.to-valid');
+  constructor(container, input, button) {
+    this.containerEl = container;
+    this.inputEl = input;
+    this.buttonEl = button;
     this.init();
     this.cardIdentifiers = [{ mir: [2] },
       { american_express: [34, 37] },
@@ -19,8 +22,9 @@ export default class FormaValidCard {
   }
 
   init() {
+    if (this.containerEl === null) return;
     this.inputEl.addEventListener('input', (event) => this.checkValidInputNum(event));
-    this.buttonEl.addEventListener('click', () => this.checkValidInput(this.inputEl.value));
+    this.buttonEl.addEventListener('click', () => this.checkValidNumCard(this.inputEl.value));
   }
 
   checkValidInputNum(event) { // проверяет что бы каждое введенное значение было числом
@@ -38,37 +42,20 @@ export default class FormaValidCard {
     return true;
   }
 
-  checkValidInput(numCard) { // проверяет правильность введенного номера карты
-    const numLength = numCard.length;
-    const checkNumber = Number(numCard.substring(numLength - 1)); // контрольное число
-    const numberArr = numCard.substring(0, numLength - 1).split('');
-    const j = numberArr.reverse()
-      .map((elem) => Number(elem));
-    const checkSumm = j.reduce((total, value, index) => {
-      if (index % 2 === 0) {
-        value *= 2;
-        if (value > 9) {
-          value -= 9;
-          return total + value;
-        } return total + value;
-      }
-      return total + value;
-    }, 0);
-    const validity = checkNumber === (10 - (checkSumm % 10));
-    if (validity) {
+  checkValidNumCard(numCard) { // проверяет правильность введенного номера карты
+    if (checkValidInput(numCard)) {
       this.identifyAffiliationCard(numCard);
     } else alert('Вы ввели неверный номер карты');
   }
 
   identifyAffiliationCard(numCard) { // определяет какой системе принадлежит карта
-    // const numCard = this.inputEl.value;
     this.cardIdentifiers.forEach((elem) => {
       // eslint-disable-next-line guard-for-in
-      for (const obj in elem) {
-        elem[obj].forEach((elemObj) => {
+      for (const data in elem) {
+        elem[data].forEach((elemObj) => {
           const test = new RegExp(`^${elemObj}`).test(numCard);
           if (test) {
-            this.showAffiliationCard(obj);
+            this.showAffiliationCard(data);
           }
         });
       }
