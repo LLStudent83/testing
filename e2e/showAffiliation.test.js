@@ -1,6 +1,6 @@
 import { fork } from 'child_process';
 
-const puppetteer = require('puppeteer');
+const puppeteer = require('puppeteer');
 
 jest.setTimeout(30000);
 describe('Check сard', () => {
@@ -19,15 +19,16 @@ describe('Check сard', () => {
       });
     });
 
-    browser = await puppetteer.launch({
+    browser = await puppeteer.launch({
       headless: false, // show guis
-      lowMo: 100,
+      slowMo: 100,
       devtools: true, // show devTools
     });
     page = await browser.newPage();
   });
   afterAll(async () => {
-    // await browser.close();
+    await browser.close();
+    server.kill();
   });
   describe('Check сard', () => {
     test('проверка подсвечивания иконки карты', async () => {
