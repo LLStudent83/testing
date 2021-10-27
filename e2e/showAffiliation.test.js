@@ -26,19 +26,17 @@ describe('Check сard', () => {
     });
     page = await browser.newPage();
   });
-
-  describe('Check сard', () => {
-    test('проверка подсвечивания иконки карты', async () => {
-      await page.goto(baseUrl);
-      const input = await page.$('.input-valid-card');
-      await input.type('4716662880185704351');
-      const button = await page.$('.to-valid');
-      button.click();
-      await page.waitForSelector('.acktiv');
-    });
-  });
   afterAll(async () => {
     await browser.close();
     server.kill();
+  });
+
+  test('проверка подсвечивания иконки карты', async () => {
+    await page.goto(baseUrl);
+    const input = await page.$('.input-valid-card');
+    await input.type('4716662880185704351');
+    const button = await page.$('.to-valid');
+    button.click();
+    await page.waitForSelector('.acktiv');
   });
 });
