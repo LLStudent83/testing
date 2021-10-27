@@ -26,10 +26,7 @@ describe('Check сard', () => {
     });
     page = await browser.newPage();
   });
-  afterAll(async () => {
-    await browser.close();
-    server.kill();
-  });
+
   describe('Check сard', () => {
     test('проверка подсвечивания иконки карты', async () => {
       await page.goto(baseUrl);
@@ -39,5 +36,9 @@ describe('Check сard', () => {
       button.click();
       await page.waitForSelector('.acktiv');
     });
+  });
+  afterAll(async () => {
+    await browser.close();
+    server.kill();
   });
 });
