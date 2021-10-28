@@ -2,7 +2,7 @@ import { fork } from 'child_process';
 
 const puppeteer = require('puppeteer');
 
-jest.setTimeout(30000);
+jest.setTimeout(90000);
 describe('Check сard', () => {
   let browser = null;
   let page = null;
@@ -20,7 +20,8 @@ describe('Check сard', () => {
     });
 
     browser = await puppeteer.launch({
-      headless: false, // show guis
+      ignoreDefaultArgs: ['--disable-extensions'],
+      headless: true, // show guis
       slowMo: 100,
       devtools: true, // show devTools
     });
@@ -30,13 +31,14 @@ describe('Check сard', () => {
     await browser.close();
     server.kill();
   });
-
-  test('проверка подсвечивания иконки карты', async () => {
-    await page.goto(baseUrl);
-    const input = await page.$('.input-valid-card');
-    await input.type('4716662880185704351');
-    const button = await page.$('.to-valid');
-    button.click();
-    await page.waitForSelector('.acktiv');
+  describe('Check сard', () => {
+    test('проверка подсвечивания иконки карты', async () => {
+      await page.goto(baseUrl);
+      const input = await page.$('.input-valid-card');
+      await input.type('4716662880185704351');
+      const button = await page.$('.to-valid');
+      button.click();
+      await page.waitForSelector('.acktiv');
+    });
   });
 });
